@@ -1,0 +1,39 @@
+{
+  "data": {
+    "formtype": 1,
+    "basic_information": {
+      "status": "pending",
+      "moving_situation": "Move In",
+      "moving_date": "2018/02/29",
+      "submit_date": "2018/02/29",
+      "unit_no": "",
+      "check_no": "",
+      "deposit": ""
+    },
+    "owner_information": {
+      "name": "Saw Min Oo",
+      "mobile_no": "86694903",
+      "email": ""
+    },
+    "mover_information": {
+      "choose": true,
+      "mover_name": "saw",
+      "mover_address": "",
+      "mover_phno": "86694903",
+      "mover_email": "",
+      "vehicle_type": ""
+    },
+    "other_information": [
+      {
+        "id": 1,
+        "name": "Sec_47.pdf",
+        "url": "https://api.lifeup.com.sg/images/Sec_47.pdf"
+      },
+      {
+        "name": "Sec_65.pdf",
+        "url": "https://api.lifeup.com.sg/images/Sec_65.pdf"
+      }
+    ],
+    "messages": []
+  }
+}

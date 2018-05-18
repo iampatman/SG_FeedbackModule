@@ -1,0 +1,22 @@
+{
+  "unitno": "12-02-1",
+  "email": "sawminoo@dasfasf.com",
+  "moving_situation": [
+    {
+      "id": 1,
+      "name": "Moving Out"
+    },
+    {
+      "id": 2,
+      "name": "Moving In"
+    },
+    {
+      "id": 3,
+      "name": "Renting Out"
+    },
+    {
+      "id": 4,
+      "name": "Sale/Purchase"
+    }
+  ]
+}

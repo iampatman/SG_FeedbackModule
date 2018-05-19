@@ -9,7 +9,7 @@ import Loader from '../../components/loader/Loader'
 
 export default class SubmissionHistoryScreen extends React.Component {
   static navigationOptions = {
-    title: 'Form Submission History'
+    title: 'Feedback History'
   }
 
   constructor (props) {
@@ -58,35 +58,35 @@ export default class SubmissionHistoryScreen extends React.Component {
   onItemPressed = (item) => {
     const {navigation} = this.props
     navigateToFormDetail(navigation, {
-      formId: item.formid,
-      formType: item.form_type
+      id: item.id,
+      // title: item.subc
     })
   }
 
   renderItem = (item) => {
 
-    const highlight = item.updated == true
+    const highlight = item.read === false
     const textStyle = highlight ? null : styles.detailTextStyle1
-    const icon = this.getIconFromFormTypeId(item.form_type.toString(), highlight)
+
     return (
       <TouchableOpacity style={styles.itemContainer} onPress={() => this.onItemPressed(item)}>
-        <Image source={icon}/>
+        <Image style={{width: 40, height: 40}} source={{uri: item.icon_url}}/>
         <View style={styles.detailContainer}>
           <Text style={textStyle}>
-            {item.form_name}
+            {item.condo} {item.building} {item.unit}
           </Text>
           <Text style={textStyle}>
-            Status: {item.state}
+            Status: {item.status}
           </Text>
         </View>
         <View style={styles.itemRightContainer}>
           <Text style={textStyle}>
-            {item.created_date}
+            {item.date}
           </Text>
-          {item.new_message ? <View style={styles.newMsgContainer}>
-              <Text style={styles.newMsgText}>New Message</Text>
-            </View>
-            : null}
+          {/*{item.new_message ? <View style={styles.newMsgContainer}>*/}
+              {/*<Text style={styles.newMsgText}>New Message</Text>*/}
+            {/*</View>*/}
+            {/*: null}*/}
         </View>
       </TouchableOpacity>
     )

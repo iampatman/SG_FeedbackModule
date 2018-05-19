@@ -1,9 +1,15 @@
 import CONFIG from '../../utils/Config'
 
-export default query = async (data) => {
+export default query = async ({category_id, subcategory_id, description, image}) => {
   return new Promise((resolve, reject) => {
     let url = CONFIG.url + '/rev/feedback/register'
-    console.log('Submitting form: ' + JSON.stringify({data}))
+    // console.log('Submitting form: ' + JSON.stringify({data}))
+    let form: FormData = new FormData()
+    form.append('category_id', category_id)
+    form.append('subcategory_id', subcategory_id)
+    form.append('description', description)
+    form.append('image', image)
+
     fetch(url, {
       method: 'POST',
       headers: {
@@ -11,7 +17,7 @@ export default query = async (data) => {
         Accept: 'application/json',
         'Content-Type': 'form-data',
       },
-      body: JSON.stringify({data})
+      body: form
     }).then((response) => {
       console.log(response)
       return response.json()

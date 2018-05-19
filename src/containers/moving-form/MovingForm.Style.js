@@ -17,10 +17,10 @@ export default StyleSheet.create({
     height: SCREEN_HEIGHT
   },
   input: {
-    height: 50,
+    height: 100,
     marginVertical: 8,
     paddingHorizontal: 10,
-    borderWidth: 0.3,
+    borderBottomWidth: 0.3,
     borderColor: 'gray',
     borderRadius: 4
   },
@@ -33,5 +33,22 @@ export default StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 4,
     justifyContent: 'center'
+  },
+  selectImageContainer: {
+    height: 80,
+    width: 80,
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'transparent'
+  },
+  image: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
+
   }
+
 })

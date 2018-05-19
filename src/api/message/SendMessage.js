@@ -6,7 +6,7 @@ export default query = async (data) => {
     let form: FormData = new FormData()
     console.log('send mssgae data' + JSON.stringify(data))
     form.append('id', data.id)
-    form.append('formtype', data.formtype)
+    form.append('type', data.type)
     form.append('message', data.message)
     fetch(url, {
       method: 'POST',

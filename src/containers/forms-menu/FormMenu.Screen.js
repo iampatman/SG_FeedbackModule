@@ -11,6 +11,8 @@ import {
 } from '../../navigation/helpers/Nav.FormMenu.Helper'
 import CONFIG from '../../utils/Config'
 import { loadCategoryList } from '../../api/index'
+import Loader from '../../components/loader/Loader'
+import { ActionSheet } from 'antd-mobile'
 
 const {ReactManager} = NativeModules
 
@@ -58,25 +60,30 @@ export default class FormMenuScreen extends React.Component {
     })
   }
 
-  onMenuSelected = (id) => {
+  onMenuSelected = (item) => {
     const {navigation} = this.props
-    switch (id) {
-      case 1:
-        navigateToMovingForm(navigation)
-        return
-      case 2:
-        navigateToRentalForm(navigation)
-        return
-      case 3:
-        navigateToRenovationForm(navigation)
-        return
-      case 4:
-        navigateToVehicleForm(navigation)
-        return
-      case 5:
-        navigateToRefundForm(navigation)
-        return
-    }
+
+    this.displaySubMenu(item, (selectedId, title) => {
+      navigateToMovingForm(navigation, {
+        catId: item.id,
+        subCatId: selectedId,
+        title: title
+      })
+    })
+  }
+
+  displaySubMenu = (item, onPress) => {
+    const subCat = item.subcategory
+    const options = [...subCat.map(cat => cat.name), 'Cancel']
+
+    ActionSheet.showActionSheetWithOptions({
+      options, cancelButtonIndex: options.length - 1, title: item.name
+    }, (selectedIndex) => {
+      console.log('Selected sub cat Index ' + selectedIndex)
+      if (selectedIndex != options.length - 1 && onPress) {
+        onPress(subCat[selectedIndex].id, subCat[selectedIndex].name)
+      }
+    })
   }
 
   onShowHistoryPressed = () => {
@@ -86,7 +93,7 @@ export default class FormMenuScreen extends React.Component {
 
   renderItem = (item) => {
     return (
-      <TouchableOpacity style={styles.itemContainer} onPress={() => this.onMenuSelected(item.id)}>
+      <TouchableOpacity style={styles.itemContainer} onPress={() => this.onMenuSelected(item)}>
         <Image source={{uri: item.icon_url}} style={styles.iconImage}/>
         <Text style={styles.menuTitleText}>{item.name}</Text>
       </TouchableOpacity>
@@ -99,7 +106,7 @@ export default class FormMenuScreen extends React.Component {
       <View style={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
         <TouchableOpacity style={styles.historyContainer} onPress={this.onShowHistoryPressed}>
-          <Text>Check Submission History</Text>
+          <Text>Check Feedback History</Text>
         </TouchableOpacity>
         <FlatList data={data}
                   renderItem={(item) => this.renderItem(item.item)}

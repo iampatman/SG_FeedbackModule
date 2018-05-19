@@ -13,6 +13,7 @@ export default query = () => {
       if (responseJson.detail != null) {
         reject(responseJson.detail)
       }
+      CONFIG.terms_url = responseJson.terms
       resolve(responseJson.Feedback_category)
     }).catch((error) => {
       console.log(error)

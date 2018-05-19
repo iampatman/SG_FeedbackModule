@@ -14,14 +14,12 @@ export default class Messages extends React.Component {
   constructor (props) {
     super(props)
     console.log('messages props' + JSON.stringify(props))
-    // const {params} = this.props.navigation.state
     this.state = {
-      formId: props.formId,
-      formType: props.formType,
       newmsg: '',
       refreshing: false,
+      id: props.id,
+      type: props.type,
       data: props.data,
-      // onSend: params.onSend
     }
   }
 
@@ -38,8 +36,8 @@ export default class Messages extends React.Component {
   }
 
   sendMessage = (message) => {
-    const {formId, formType} = this.state
-    const param = {id: formId, formtype: formType, message}
+    const {id} = this.state
+    const param = {id, type: 6, message}
     this.setReloading(true)
 
     sendMessageQuery(param).then((data) => {
@@ -62,7 +60,7 @@ export default class Messages extends React.Component {
     return (
       <View style={styles.itemContainer}>
         <View style={styles.itemTitleContainer}>
-          <Text style={styles.itemTitleText}>{item.create_by}</Text>
+          <Text style={styles.itemTitleText}>{item.create_uid}</Text>
         </View>
         <View style={styles.itemDetailContainer}>
           <Text>{item.detail}</Text>

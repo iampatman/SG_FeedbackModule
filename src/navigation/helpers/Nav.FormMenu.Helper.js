@@ -18,21 +18,6 @@ export const navigateToMovingForm = (navigation, param) => {
   navigation.navigate(n.MOVING, param)
 }
 
-export const navigateToRentalForm = (navigation, param) => {
-  navigation.navigate(n.RENTAL, param)
-}
-
-export const navigateToRenovationForm = (navigation, param) => {
-  navigation.navigate(n.RENOVATION, param)
-}
-
-export const navigateToVehicleForm = (navigation, param) => {
-  navigation.navigate(n.VEHICLE, param)
-}
-
-export const navigateToRefundForm = (navigation, param) => {
-  navigation.navigate(n.REFUND, param)
-}
 export const resetToHome = (navigation, param) => {
   resetToRoute(navigation, n.FORM_MENU)
 }

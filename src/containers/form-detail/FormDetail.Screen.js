@@ -7,6 +7,7 @@ import {
 import styles from './FormDetail.Style'
 import { loadFormDetail } from '../../api/index'
 import {
+  extractFeedbackData,
   extractMovingData, extractOtherInformation, extractRefundData, extractRenovationData, extractRentalData,
   extractVehicleData
 } from './FormDetail.ExtractData'
@@ -21,17 +22,16 @@ export default class FormDetailScreen extends React.Component {
     super(props)
     const {params} = this.props.navigation.state || {}
     console.log('FormDetailScreen Params ' + JSON.stringify(params))
-    this.formId = CONFIG.formid
-    this.formType = CONFIG.formtype
+    this.id = CONFIG.id
     if (params != null) {
-      this.formId = params.formId
-      this.formType = params.formType
+      this.id = params.id
     }
 
     this.state = {
-      formId: this.formId,
-      formType: this.formType,
+      id: this.id,
       data: [],
+      images: [],
+      messages: [],
       message: [],
       loading: true
     }
@@ -39,7 +39,7 @@ export default class FormDetailScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => {
-    if (CONFIG.formid != 0 && CONFIG.formtype != 0) {
+    if (CONFIG.id != 0) {
       return {
         title: 'Form Detail',
         headerLeft: <Button title={'Back'} onPress={() => {
@@ -87,34 +87,13 @@ export default class FormDetailScreen extends React.Component {
     })
   }
   loadData = () => {
-    const {formId, formType} = this.state
-    loadFormDetail({formId, formType}).then((data) => {
+    const {id} = this.state
+    loadFormDetail(id).then((data) => {
       // console.log('data: ' + JSON.stringify(data))
-      var extractedData = []
-      switch (this.state.formType) {
-        case 1:
-          extractedData = extractMovingData(data)
-          break
-        case 2:
-          extractedData = extractRentalData(data)
-          break
-        case 3:
-          extractedData = extractRenovationData(data)
-          break
-        case 4:
-          extractedData = extractVehicleData(data)
-          break
-        case 5:
-          extractedData = extractRefundData(data)
-          break
-      }
-
-      const extractedOtherData = extractOtherInformation(data)
-      if (extractedOtherData)
-        extractedData.push(extractedOtherData)
-
+      var extractedData = extractFeedbackData(data)
       this.setState({
         message: data.message,
+        images: data.feedback_information.imageurls,
         data: extractedData,
         loading: false
       })
@@ -126,7 +105,7 @@ export default class FormDetailScreen extends React.Component {
   }
 
   render () {
-    const {data, message, loading, formId, formType} = this.state
+    const {id, data, message, loading} = this.state
     return (
       <ScrollView style={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
@@ -135,7 +114,7 @@ export default class FormDetailScreen extends React.Component {
           renderSectionHeader={({section: {title}}) => <Text style={styles.sectionText}>{title}</Text>}
           sections={data}
         />
-        <Messages data={message} formId={formId} formType={formType}/>
+        <Messages data={message} id={id}/>
       </ScrollView>
     )
   }

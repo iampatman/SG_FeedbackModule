@@ -75,8 +75,8 @@ export default class Messages extends React.Component {
     console.log('messages data' + JSON.stringify(data))
     return (
       <View style={styles.container}>
-        {data.length > 0 ?
-        <FlatList
+        <Text style={styles.sectionText}>Messages</Text>
+        {data.length > 0 ? <FlatList
           data={data}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id.toString()}
@@ -91,7 +91,9 @@ export default class Messages extends React.Component {
           <Button disabled={this.state.newmsg == ''}
                   type={'primary'}
                   style={styles.submitBtn}
-                  onClick={this.onSendMessagePressed}>Send</Button>
+                  onClick={this.onSendMessagePressed}>
+            <Text>Send</Text>
+          </Button>
         </View>
       </View>
     )

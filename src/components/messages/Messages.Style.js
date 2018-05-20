@@ -44,5 +44,9 @@ export default StyleSheet.create({
     // backgroundColor: 'gray',
     padding: 10,
     marginVertical: 10
-  }
+  },
+  sectionText: {
+    color: 'blue',
+    fontWeight: 'bold'
+  },
 })

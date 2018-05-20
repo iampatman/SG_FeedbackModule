@@ -2,18 +2,20 @@ import React from 'react'
 import {
   View,
   Text,
-  FlatList, SectionList, ScrollView, Alert, NativeModules, Platform, Button
+  SectionList, ScrollView,
+  Alert, NativeModules, Platform, Button
 } from 'react-native'
+
+import { Button as ANTButton } from 'antd-mobile'
 import styles from './FormDetail.Style'
-import { loadFormDetail } from '../../api/index'
+import { loadFormDetail,submitRating } from '../../api/index'
 import {
   extractFeedbackData,
-  extractMovingData, extractOtherInformation, extractRefundData, extractRenovationData, extractRentalData,
-  extractVehicleData
 } from './FormDetail.ExtractData'
 import Loader from '../../components/loader/Loader'
 import Messages from '../../components/messages/Messages'
 import CONFIG from '../../utils/Config'
+import StarRating from 'react-native-star-rating'
 
 const {ReactManager} = NativeModules
 
@@ -33,7 +35,8 @@ export default class FormDetailScreen extends React.Component {
       images: [],
       messages: [],
       message: [],
-      loading: true
+      loading: true,
+      rating: 0
     }
     console.log('State: ' + JSON.stringify(this.state))
   }
@@ -104,6 +107,41 @@ export default class FormDetailScreen extends React.Component {
     })
   }
 
+  sendRating = () => {
+    const {rating, id} = this.state
+    submitRating({id, rating}).then(data => {
+      Alert.alert('', 'Thank you for your feedback')
+    }).catch((error) => {
+      this.setLoading(false)
+      // Alert.alert('Error', error)
+      console.log(error)
+    })
+  }
+
+  renderRating = () => {
+    return (
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <StarRating
+          disabled={false}
+          maxStars={5}
+          starSize={30}
+          rating={this.state.rating}
+          selectedStar={(rating) => this.setState({rating})}
+          fullStarColor={'blue'}
+        />
+        <ANTButton
+          disabled={this.state.rating === 0}
+          type={'primary'}
+          onPress={this.sendRating}>
+          <Text>Submit</Text>
+        </ANTButton>
+
+
+      </View>
+
+    )
+  }
+
   render () {
     const {id, data, message, loading} = this.state
     return (
@@ -114,8 +152,11 @@ export default class FormDetailScreen extends React.Component {
           renderSectionHeader={({section: {title}}) => <Text style={styles.sectionText}>{title}</Text>}
           sections={data}
         />
-        <Messages data={message} id={id}/>
+        {false ? <Messages data={message} id={id}/> : this.renderRating()}
+
+
       </ScrollView>
     )
   }
 }
+

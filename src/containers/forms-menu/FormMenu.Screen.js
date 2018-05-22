@@ -57,6 +57,9 @@ export default class FormMenuScreen extends React.Component {
     }).catch(error => {
       console.log(error)
       Alert.alert('Error', error)
+      // this.setState({
+      //   loading: false
+      // })
     })
   }
 

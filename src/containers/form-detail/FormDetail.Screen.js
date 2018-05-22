@@ -3,12 +3,12 @@ import {
   View,
   Text,
   SectionList, ScrollView,
-  Alert, NativeModules, Platform, Button
+  Alert, NativeModules, Platform, Button, FlatList, Image
 } from 'react-native'
 
 import { Button as ANTButton } from 'antd-mobile'
 import styles from './FormDetail.Style'
-import { loadFormDetail,submitRating } from '../../api/index'
+import { loadFormDetail, submitRating } from '../../api/index'
 import {
   extractFeedbackData,
 } from './FormDetail.ExtractData'
@@ -32,11 +32,13 @@ export default class FormDetailScreen extends React.Component {
     this.state = {
       id: this.id,
       data: [],
+      rawData: null,
       images: [],
       messages: [],
       message: [],
       loading: true,
-      rating: 0
+      rating: 0,
+      ratingLoading: false
     }
     console.log('State: ' + JSON.stringify(this.state))
   }
@@ -95,6 +97,7 @@ export default class FormDetailScreen extends React.Component {
       // console.log('data: ' + JSON.stringify(data))
       var extractedData = extractFeedbackData(data)
       this.setState({
+        rawData: data,
         message: data.message,
         images: data.feedback_information.imageurls,
         data: extractedData,
@@ -109,7 +112,14 @@ export default class FormDetailScreen extends React.Component {
 
   sendRating = () => {
     const {rating, id} = this.state
+    console.log('Send Rating')
+    this.setState({
+      ratingLoading: true
+    })
     submitRating({id, rating}).then(data => {
+      this.setState({
+        ratingLoading: false
+      })
       Alert.alert('', 'Thank you for your feedback')
     }).catch((error) => {
       this.setLoading(false)
@@ -119,20 +129,24 @@ export default class FormDetailScreen extends React.Component {
   }
 
   renderRating = () => {
+
+    const ratingDisabled = false
+
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <StarRating
-          disabled={false}
+          disabled={ratingDisabled}
           maxStars={5}
           starSize={30}
           rating={this.state.rating}
-          selectedStar={(rating) => this.setState({rating})}
+          selectedStar={(rating) => this.setState({rating: parseInt(rating)})}
           fullStarColor={'blue'}
         />
         <ANTButton
+          loading={this.state.ratingLoading}
           disabled={this.state.rating === 0}
           type={'primary'}
-          onPress={this.sendRating}>
+          onClick={this.sendRating}>
           <Text>Submit</Text>
         </ANTButton>
 
@@ -142,8 +156,22 @@ export default class FormDetailScreen extends React.Component {
     )
   }
 
+  renderImages = () => {
+
+    // const images = ['https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg']
+    const images = this.state.images
+    return (
+      <FlatList data={images}
+                renderItem={(item) => <Image source={{uri: item.item}} style={{width: 80, height: 80, margin: 5}}/>}
+                horizontal={true}/>
+    )
+  }
+
   render () {
-    const {id, data, message, loading} = this.state
+    const {id, data, message, loading, rawData} = this.state
+    const status = rawData ? rawData.basic_information.status : ''
+    console.log('rawData ' + JSON.stringify(rawData))
+    console.log('Status ' + status)
     return (
       <ScrollView style={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
@@ -152,9 +180,9 @@ export default class FormDetailScreen extends React.Component {
           renderSectionHeader={({section: {title}}) => <Text style={styles.sectionText}>{title}</Text>}
           sections={data}
         />
-        {false ? <Messages data={message} id={id}/> : this.renderRating()}
-
-
+        {this.renderImages()}
+        {new Set(['sent', 'received', 'pending']).has(status) ?
+          <Messages data={message} id={id}/> : this.renderRating()}
       </ScrollView>
     )
   }

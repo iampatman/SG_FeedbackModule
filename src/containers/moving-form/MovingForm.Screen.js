@@ -1,17 +1,11 @@
 import React from 'react'
 import { View, TextInput, Dimensions, Modal, Text, ScrollView, Alert, TouchableOpacity, Image } from 'react-native'
 import styles from './MovingForm.Style'
-import Checkbox from '../../components/check-box/Checkbox'
-import { showPicker } from '../../components/Picker/Picker'
-import CalendarPicker from '../../components/calendar/Calendar.Picker'
 import { Button } from 'antd-mobile'
 import { navigateToThankyou } from '../../navigation/helpers/Nav.FormMenu.Helper'
 import Loader from '../../components/loader/Loader'
 import { submitForm, DATA_TYPE, loadData } from '../../api/index'
-import moment from 'moment'
-import Images from '../../assets/Images'
-import RNFetchBlob from 'react-native-fetch-blob'
-import showUploadFileActionSheet, { SELECTED_TYPE } from '../../components/uploader/Uploader'
+
 import * as ImagePicker from 'react-native-image-picker'
 
 const SELECTED_SEC_DOCUMENT = {
@@ -92,16 +86,24 @@ export default class MovingFormScreen extends React.Component {
     if (this.validateForm() == false) {
       return
     }
+    var image = ''
+    this.state.images.forEach((src) => {
+      if (image !== ''){
+        image = image + ','
+      }
+      image = image + src.uri.replace('data:image/jpeg;base64,','')
+    })
+    this.data.image = image
     console.log('Data onSubmitPressed' + JSON.stringify(this.data))
     this.submitFormData(this.data)
   }
 
   renderImages = () => {
-
     const {images} = this.state
     var imagesArr = [...images]
     if (imagesArr.length < 3)
       imagesArr.push(null)
+
     return imagesArr.map((image, index) => renderImageSelector(image, (photo) => {
       imagesArr[index] = photo
       this.setState({
@@ -155,8 +157,8 @@ const renderImageSelector = (image, onPhotoSelected) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton)
       } else {
-        // let source = {uri: `data:image/jpeg;base64,${response.data}`}
-        let source = {uri: response.uri}
+        let source = {uri: `data:image/jpeg;base64,${response.data}`}
+        // let source = {uri: response.uri}
         onPhotoSelected(source)
       }
     })

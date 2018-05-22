@@ -1,13 +1,15 @@
 import CONFIG from '../../utils/Config'
 
-export default query = async ({id, rate, comment}) => {
+export default query = async ({id, rating}) => {
   return new Promise((resolve, reject) => {
     let url = CONFIG.url + '/rev/feedback/rate'
     let form: FormData = new FormData()
+    const starValues = ['poor', 'fair', 'good', 'very_good', 'excellent']
+    console.log('rating ' + rating)
     form.append('id', id)
-    form.append('rate', rate)
-    form.append('comment', comment)
-
+    form.append('rate', starValues[rating])
+    form.append('comment', ' ')
+    console.log('Request data: ' + JSON.stringify(form))
     fetch(url, {
       method: 'POST',
       headers: {

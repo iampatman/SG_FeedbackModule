@@ -3,7 +3,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = async (id) => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + `/rev/feedback/detail?id=${id}`
+    let url = CONFIG.url + `feedback/detail?id=${id}`
     fetch(url, {
       method: 'GET',
       headers: {

@@ -2,7 +2,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = () => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + '/rev/feedback/category'
+    let url = CONFIG.url + 'feedback/category'
     fetch(url, {
       method: 'GET',
       headers: {
@@ -14,6 +14,7 @@ export default query = () => {
         reject(responseJson.detail)
       }
       CONFIG.terms_url = responseJson.terms
+      // reject('Server error, Please try again later')
       resolve(responseJson.Feedback_category)
     }).catch((error) => {
       console.log(error)

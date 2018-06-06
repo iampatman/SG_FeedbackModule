@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "build:ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./ios/form_submit.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
-    "build:android": "node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./android/form_submit.android.bundle' --dev=false --platform='android' --assets-dest='./android'"
+    "build:ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./ios/feedback_module.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build:android": "node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./android/feedback_module.android.bundle' --dev=false --platform='android' --assets-dest='./android'"
   },
   "dependencies": {
     "antd-mobile": "2.1.8",

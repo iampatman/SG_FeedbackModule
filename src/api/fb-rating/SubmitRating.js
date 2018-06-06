@@ -2,7 +2,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = async ({id, rating}) => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + '/rev/feedback/rate'
+    let url = CONFIG.url + 'feedback/rate'
     let form: FormData = new FormData()
     const starValues = ['poor', 'fair', 'good', 'very_good', 'excellent']
     console.log('rating ' + rating)

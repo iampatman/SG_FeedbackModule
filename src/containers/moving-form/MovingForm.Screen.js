@@ -1,5 +1,8 @@
 import React from 'react'
-import { View, TextInput, Dimensions, Modal, Text, ScrollView, Alert, TouchableOpacity, Image } from 'react-native'
+import {
+  View, TextInput,
+  Dimensions, Modal, Text, ScrollView, Alert, TouchableOpacity, Image, ActivityIndicator
+} from 'react-native'
 import styles from './MovingForm.Style'
 import { Button } from 'antd-mobile'
 import { navigateToThankyou } from '../../navigation/helpers/Nav.FormMenu.Helper'
@@ -88,10 +91,10 @@ export default class MovingFormScreen extends React.Component {
     }
     var image = ''
     this.state.images.forEach((src) => {
-      if (image !== ''){
+      if (image !== '') {
         image = image + ','
       }
-      image = image + src.uri.replace('data:image/jpeg;base64,','')
+      image = image + src.uri.replace('data:image/jpeg;base64,', '')
     })
     this.data.image = image
     console.log('Data onSubmitPressed' + JSON.stringify(this.data))
@@ -138,9 +141,16 @@ export default class MovingFormScreen extends React.Component {
 
 const renderImageSelector = (image, onPhotoSelected) => {
   // console.log('Image ' + JSON.stringify(image))
+  var refActivityIndicator = null
   const onPress = () => {
+    console.log('refActivityIndicator ' + refActivityIndicator)
+    refActivityIndicator.setNativeProps({
+      animating: true
+    })
+
     const options = {
       title: 'Select Photo',
+      quality: 0.5,
       chooseFromLibraryButtonTitle: 'Camera Roll',
       takePhotoButtonTitle: 'Take Photo',
       storageOptions: {
@@ -150,6 +160,9 @@ const renderImageSelector = (image, onPhotoSelected) => {
     }
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response)
+      refActivityIndicator.setNativeProps({
+        animating: false
+      })
       if (response.didCancel) {
         console.log('User cancelled image picker')
       } else if (response.error) {
@@ -167,6 +180,7 @@ const renderImageSelector = (image, onPhotoSelected) => {
   if (image === null) {
     return (
       <TouchableOpacity style={styles.selectImageContainer} onPress={onPress}>
+        <ActivityIndicator animating={false} hidesWhenStopped={true} ref={ref => refActivityIndicator = ref}/>
         <Text>
           Add Image
         </Text>

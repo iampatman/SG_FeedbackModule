@@ -2,7 +2,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = async ({category_id, subcategory_id, description, image}) => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + '/rev/feedback/register'
+    let url = CONFIG.url + 'feedback/register'
     // console.log('Submitting form: ' + JSON.stringify({data}))
     let form: FormData = new FormData()
     form.append('category_id', category_id)
@@ -15,7 +15,8 @@ export default query = async ({category_id, subcategory_id, description, image})
       headers: {
         Authorization: CONFIG.token,
         Accept: 'application/json',
-        'Content-Type': 'form-data',
+        // 'Content-Type': 'form-data',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: form
     }).then((response) => {

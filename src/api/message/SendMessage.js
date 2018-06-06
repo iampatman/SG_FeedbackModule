@@ -2,7 +2,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = async (data) => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + '/message/create'
+    let url = CONFIG.url + 'message/create'
     let form: FormData = new FormData()
     console.log('send mssgae data' + JSON.stringify(data))
     form.append('id', data.id)
@@ -13,7 +13,7 @@ export default query = async (data) => {
       headers: {
         Authorization: CONFIG.token,
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: form
     }).then((response) => {

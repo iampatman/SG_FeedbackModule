@@ -60,7 +60,7 @@ export default class Messages extends React.Component {
     return (
       <View style={styles.itemContainer}>
         <View style={styles.itemTitleContainer}>
-          <Text style={styles.itemTitleText}>{item.create_uid}</Text>
+          <Text style={styles.itemTitleText}>{item.created_by}</Text>
         </View>
         <View style={styles.itemDetailContainer}>
           <Text>{item.detail}</Text>

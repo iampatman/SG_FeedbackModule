@@ -4,24 +4,24 @@ import {
   TouchableOpacity, NativeModules, Platform, Button, Alert
 } from 'react-native'
 import styles from './FormMenu.Style'
-import listData from './FormMenu.Form'
 import {
-  navigateToHistory, navigateToMovingForm, navigateToRefundForm, navigateToRenovationForm,
-  navigateToRentalForm, navigateToVehicleForm
+  navigateToHistory, navigateToMovingForm,
 } from '../../navigation/helpers/Nav.FormMenu.Helper'
 import CONFIG from '../../utils/Config'
 import { loadCategoryList } from '../../api/index'
 import Loader from '../../components/loader/Loader'
-import { ActionSheet } from 'antd-mobile'
+import { ActionSheet, Icon } from 'antd-mobile'
 
 const {ReactManager} = NativeModules
 
 export default class FormMenuScreen extends React.Component {
   static navigationOptions = {
     title: 'Feedback',
-    headerLeft: <Button title={'Back'} onPress={() => {
+    headerLeft: <TouchableOpacity onPress={() => {
       FormMenuScreen.goBackStaticFunc()
-    }}></Button>
+    }}>
+      <Image source={require('../../assets/images/left-arrow.png')} style={{height: 20, width: 20, marginLeft: 10}}/>
+    </TouchableOpacity>
   }
 
   static goBackStaticFunc = () => {
@@ -56,7 +56,16 @@ export default class FormMenuScreen extends React.Component {
       })
     }).catch(error => {
       console.log(error)
-      Alert.alert('Error', error)
+      Alert.alert('Error', error, [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.setState({
+              loading: false
+            }, FormMenuScreen.goBackStaticFunc)
+          }
+        }
+      ], {cancelable: false})
       // this.setState({
       //   loading: false
       // })

@@ -3,7 +3,7 @@ import CONFIG from '../../utils/Config'
 
 export default query = async () => {
   return new Promise((resolve, reject) => {
-    let url = CONFIG.url + '/rev/feedback/list'
+    let url = CONFIG.url + 'feedback/list'
     fetch(url, {
       method: 'GET',
       headers: {
@@ -15,7 +15,7 @@ export default query = async () => {
         if (responseJson.detail != null) {
           reject(responseJson.detail)
         }
-        resolve(responseJson.feedback_list)
+        resolve(responseJson.activity_list)
       }).catch((error) => {
       console.log(error)
       reject('Server error, Please try again later')

@@ -70,7 +70,7 @@ export default class SubmissionHistoryScreen extends React.Component {
 
     return (
       <TouchableOpacity style={styles.itemContainer} onPress={() => this.onItemPressed(item)}>
-        <Image style={{width: 40, height: 40}} source={{uri: item.icon_url}}/>
+        <Image style={{width: 40, height: 40}} source={{uri: item.icon}}/>
         <View style={styles.detailContainer}>
           <Text style={textStyle}>
             {item.condo} {item.building} {item.unit}

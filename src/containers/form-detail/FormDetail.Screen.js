@@ -16,6 +16,7 @@ import Loader from '../../components/loader/Loader'
 import Messages from '../../components/messages/Messages'
 import CONFIG from '../../utils/Config'
 import StarRating from 'react-native-star-rating'
+import FormMenuScreen from '../forms-menu/FormMenu.Screen'
 
 const {ReactManager} = NativeModules
 
@@ -47,9 +48,11 @@ export default class FormDetailScreen extends React.Component {
     if (CONFIG.id != 0) {
       return {
         title: 'Form Detail',
-        headerLeft: <Button title={'Back'} onPress={() => {
-          FormDetailScreen.goBackStaticFunc()
-        }}></Button>
+        headerLeft: <TouchableOpacity onPress={() => {
+          FormMenuScreen.goBackStaticFunc()
+        }}>
+          <Image source={require('../../assets/images/left-arrow.png')} style={{height: 20, width: 20, marginLeft: 10}}/>
+        </TouchableOpacity>
       }
     } else {
       return null
@@ -131,6 +134,7 @@ export default class FormDetailScreen extends React.Component {
   renderRating = () => {
 
     const ratingDisabled = false
+    const {rating, ratingLoading} = this.state
 
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -143,8 +147,8 @@ export default class FormDetailScreen extends React.Component {
           fullStarColor={'blue'}
         />
         <ANTButton
-          loading={this.state.ratingLoading}
-          disabled={this.state.rating === 0}
+          loading={ratingLoading}
+          disabled={rating === 0 || ratingLoading === true}
           type={'primary'}
           onClick={this.sendRating}>
           <Text>Submit</Text>
@@ -182,7 +186,9 @@ export default class FormDetailScreen extends React.Component {
         />
         {this.renderImages()}
         {new Set(['sent', 'received', 'pending']).has(status) ?
-          <Messages data={message} id={id}/> : this.renderRating()}
+          <Messages data={message} id={id}/> : null}
+        {new Set(['completed']).has(status) ?
+          this.renderRating() : null}
       </ScrollView>
     )
   }

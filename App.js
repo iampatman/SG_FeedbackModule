@@ -8,7 +8,7 @@ export default class App extends Component<> {
   constructor (props) {
     super(props)
     CONFIG.rootTag = props.rootTag ? props.rootTag : '1'
-    CONFIG.token = props.token != null ? props.token : 'Token a8fc8c04ce05ae5f296b6fa3357852f643b9b653'
+    CONFIG.token = props.token != null ? props.token : 'Token 34f37fc89b6fc9ce11a5b076118a34fc1b5442c1'
     CONFIG.url = props.url != null ? props.url : 'http://13.250.247.107:8003/v1/rev/'
     CONFIG.id = props.id != null ? parseInt(props.id) : 0
   }

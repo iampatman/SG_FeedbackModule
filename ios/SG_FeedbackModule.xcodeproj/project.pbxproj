@@ -40,8 +40,6 @@
 		2A7AC16220B1241C00D4C9C9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A7AC15720B123E500D4C9C9 /* SimpleLineIcons.ttf */; };
 		2A7AC16320B1241C00D4C9C9 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A7AC15820B123E500D4C9C9 /* MaterialIcons.ttf */; };
 		2AD10E0820C81E700015AA45 /* anticon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD10DDC20C81E190015AA45 /* anticon.ttf */; };
-		2AD10E0A20C81F230015AA45 /* anticon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD10E0920C81F230015AA45 /* anticon.ttf */; };
-		2AD10E0B20C81F230015AA45 /* anticon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD10E0920C81F230015AA45 /* anticon.ttf */; };
 		2AD10E0C20C81F280015AA45 /* anticon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD10DDC20C81E190015AA45 /* anticon.ttf */; };
 		2BFE581259C04A8BA14819E4 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6124309519984540A1A0115C /* libRNImagePicker.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -419,7 +417,6 @@
 		2A7AC15720B123E500D4C9C9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		2A7AC15820B123E500D4C9C9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		2AD10DDC20C81E190015AA45 /* anticon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = anticon.ttf; sourceTree = "<group>"; };
-		2AD10E0920C81F230015AA45 /* anticon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = anticon.ttf; path = ../../../../../../Downloads/anticon.ttf; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* SG_FeedbackModule-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SG_FeedbackModule-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* SG_FeedbackModule-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SG_FeedbackModule-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -632,7 +629,6 @@
 			isa = PBXGroup;
 			children = (
 				2AD10DDC20C81E190015AA45 /* anticon.ttf */,
-				2AD10E0920C81F230015AA45 /* anticon.ttf */,
 				2A7AC14E20B123E500D4C9C9 /* Octicons.ttf */,
 				2A7AC14F20B123E500D4C9C9 /* Feather.ttf */,
 				2A7AC15020B123E500D4C9C9 /* Entypo.ttf */,
@@ -1301,7 +1297,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AD10E0B20C81F230015AA45 /* anticon.ttf in Resources */,
 				2AD10E0C20C81F280015AA45 /* anticon.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1329,7 +1324,6 @@
 				77428D0320E44D33BC72D0B6 /* Feather.ttf in Resources */,
 				0BA9F86EEE2A49D3B577FA0B /* FontAwesome.ttf in Resources */,
 				10AA8ADA39AE48398F15024E /* Foundation.ttf in Resources */,
-				2AD10E0A20C81F230015AA45 /* anticon.ttf in Resources */,
 				AA0F188906E84664B367F650 /* Ionicons.ttf in Resources */,
 				2978B2626667458996918F59 /* MaterialCommunityIcons.ttf in Resources */,
 				66BB71DB7D614CB4BBBDF2D2 /* MaterialIcons.ttf in Resources */,

@@ -3,7 +3,7 @@ import {
   View,
   Text,
   SectionList, ScrollView,
-  Alert, NativeModules, Platform, Button, FlatList, Image
+  Alert, NativeModules, Platform, Button, FlatList, Image, TouchableOpacity
 } from 'react-native'
 
 import { Button as ANTButton } from 'antd-mobile'
@@ -51,7 +51,8 @@ export default class FormDetailScreen extends React.Component {
         headerLeft: <TouchableOpacity onPress={() => {
           FormMenuScreen.goBackStaticFunc()
         }}>
-          <Image source={require('../../assets/images/left-arrow.png')} style={{height: 20, width: 20, marginLeft: 10}}/>
+          <Image source={require('../../assets/images/left-arrow.png')}
+                 style={{height: 20, width: 20, marginLeft: 10}}/>
         </TouchableOpacity>
       }
     } else {

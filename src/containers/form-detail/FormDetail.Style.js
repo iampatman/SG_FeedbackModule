@@ -6,6 +6,7 @@ export default StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: 'white',
+    paddingBottom: 90
   },
   sectionText: {
     color: 'blue',
@@ -13,8 +14,9 @@ export default StyleSheet.create({
   },
   itemContainer: {
     flexDirection: 'row',
-    height: 25,
+    // height: 25,
     // justifyContent: 'center',
+    marginVertical: 5,
     alignItems: 'center'
   },
   itemTitleContainer: {

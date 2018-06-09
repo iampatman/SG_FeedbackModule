@@ -1,15 +1,14 @@
 import React from 'react'
 import {
-  View, TextInput,
-  Dimensions, Modal, Text, ScrollView, Alert, TouchableOpacity, Image
+  View, TextInput, Text, ScrollView, Alert, TouchableOpacity, Image
 } from 'react-native'
 import styles from './MovingForm.Style'
 import { Button } from 'antd-mobile'
 import { navigateToThankyou } from '../../navigation/helpers/Nav.FormMenu.Helper'
 import Loader from '../../components/loader/Loader'
-import { submitForm, DATA_TYPE, loadData } from '../../api/index'
-
-import * as ImagePicker from 'react-native-image-picker'
+import { submitForm } from '../../api/index'
+import { showUploadFileActionSheet } from '../../components/uploader/Uploader'
+import ImagePicker from 'react-native-image-picker'
 import ActivityIndicator from '../../components/ActivityIndicator/ActivityIndicator'
 
 const SELECTED_SEC_DOCUMENT = {
@@ -147,38 +146,30 @@ const renderImageSelector = (image, onPhotoSelected) => {
   const onPress = () => {
     console.log('refActivityIndicator ' + refActivityIndicator)
     refActivityIndicator.start()
-
-    const options = {
-      title: 'Select Photo',
-      quality: 0.5,
-      chooseFromLibraryButtonTitle: 'Camera Roll',
-      takePhotoButtonTitle: 'Take Photo',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
-    }
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response)
-      refActivityIndicator.stop()
-      if (response.didCancel) {
-        console.log('User cancelled image picker')
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error)
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton)
-      } else {
-        let source = {uri: `data:image/jpeg;base64,${response.data}`}
-        // let source = {uri: response.uri}
-        onPhotoSelected(source)
+    showUploadFileActionSheet({
+      onComplete: (type, response) => {
+        console.log('Response = ', response)
+        refActivityIndicator.stop()
+        if (response.didCancel) {
+          console.log('User cancelled image picker')
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error)
+        } else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton)
+        } else {
+          let source = {uri: `data:image/jpeg;base64,${response.data}`}
+          // let source = {uri: response.uri}
+          onPhotoSelected(source)
+        }
       }
     })
+
   }
 
   if (image === null) {
     return (
       <TouchableOpacity style={styles.selectImageContainer} onPress={onPress}>
-        <ActivityIndicator ref={ref => refActivityIndicator = ref} onStart={}/>
+        <ActivityIndicator ref={ref => refActivityIndicator = ref}/>
         <Text ref={ref => refText = ref}>
           Add Image
         </Text>

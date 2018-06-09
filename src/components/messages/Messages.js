@@ -87,6 +87,7 @@ export default class Messages extends React.Component {
           <TextInput style={styles.messageInput}
                      placeholder={'Type your message here'}
                      value={this.state.newmsg}
+                     maxLength={250}
                      onChangeText={(text) => this.setState({newmsg: text})}/>
           <Button disabled={this.state.newmsg == ''}
                   type={'primary'}

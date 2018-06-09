@@ -117,9 +117,9 @@ export default class FormMenuScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
-        <TouchableOpacity style={styles.historyContainer} onPress={this.onShowHistoryPressed}>
-          <Text>Check Feedback History</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity style={styles.historyContainer} onPress={this.onShowHistoryPressed}>*/}
+          {/*<Text>Check Feedback History</Text>*/}
+        {/*</TouchableOpacity>*/}
         <FlatList data={data}
                   renderItem={(item) => this.renderItem(item.item)}
                   numColumns={3}

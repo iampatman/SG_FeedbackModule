@@ -178,7 +178,7 @@ export default class FormDetailScreen extends React.Component {
     console.log('rawData ' + JSON.stringify(rawData))
     console.log('Status ' + status)
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
         <SectionList
           renderItem={this.renderItem}

@@ -47,7 +47,7 @@ export default class FormDetailScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     if (CONFIG.id != 0) {
       return {
-        title: 'Form Detail',
+        title: 'Feedback Detail',
         headerLeft:
           <TouchableOpacity onPress={() => {
             FormMenuScreen.goBackStaticFunc()

@@ -48,12 +48,13 @@ export default class FormDetailScreen extends React.Component {
     if (CONFIG.id != 0) {
       return {
         title: 'Form Detail',
-        headerLeft: <TouchableOpacity onPress={() => {
-          FormMenuScreen.goBackStaticFunc()
-        }}>
-          <Image source={require('../../assets/images/left-arrow.png')}
-                 style={{height: 20, width: 20, marginLeft: 10}}/>
-        </TouchableOpacity>
+        headerLeft:
+          <TouchableOpacity onPress={() => {
+            FormMenuScreen.goBackStaticFunc()
+          }}>
+            <Image source={require('../../assets/images/left-arrow.png')}
+                   style={{height: 20, width: 20, marginLeft: 10}}/>
+          </TouchableOpacity>
       }
     } else {
       return null

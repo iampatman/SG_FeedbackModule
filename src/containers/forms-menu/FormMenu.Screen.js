@@ -30,7 +30,7 @@ export default class FormMenuScreen extends React.Component {
       if (Platform.OS === 'ios') {
         ReactManager.dismissPresentedViewController(CONFIG.rootTag)
       } else {
-        NativeModules.QRActivityStarter.goback_LifeUp()
+        NativeModules.ActivityStarter.goback_LifeUp()
       }
 
     }
@@ -50,8 +50,9 @@ export default class FormMenuScreen extends React.Component {
 
   loadData = () => {
     loadCategoryList().then((data) => {
+      const filteredData = data.filter(item => item.subcategory && item.subcategory.length > 0)
       this.setState({
-        data,
+        data: filteredData,
         loading: false
       })
     }).catch(error => {
@@ -66,9 +67,6 @@ export default class FormMenuScreen extends React.Component {
           }
         }
       ], {cancelable: false})
-      // this.setState({
-      //   loading: false
-      // })
     })
   }
 
@@ -118,7 +116,7 @@ export default class FormMenuScreen extends React.Component {
       <View style={styles.container}>
         <Loader loading={loading} text={'Loading'}/>
         {/*<TouchableOpacity style={styles.historyContainer} onPress={this.onShowHistoryPressed}>*/}
-          {/*<Text>Check Feedback History</Text>*/}
+        {/*<Text>Check Feedback History</Text>*/}
         {/*</TouchableOpacity>*/}
         <FlatList data={data}
                   renderItem={(item) => this.renderItem(item.item)}
